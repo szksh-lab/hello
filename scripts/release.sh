@@ -31,7 +31,7 @@ gh run download -R "$GITHUB_REPOSITORY" "$run_id" --pattern goreleaser
 # Push homebrew
 echo "[INFO] Checking out homebrew-${GITHUB_REPOSITORY_NAME}" >&2
 git clone --depth 1 "$GITHUB_SERVER_URL/${GITHUB_REPOSITORY_OWNER}/homebrew-${GITHUB_REPOSITORY_NAME}"
-cp dist/homebrew/*.rb "homebrew-${GITHUB_REPOSITORY_NAME}"
+cp goreleaser/*.rb "homebrew-${GITHUB_REPOSITORY_NAME}"
 pushd "homebrew-${GITHUB_REPOSITORY_NAME}"
 echo "[INFO] Commit and push homebrew-${GITHUB_REPOSITORY_NAME}" >&2
 git add *.rb
