@@ -11,10 +11,6 @@ jobs:
       go-version-file: go.mod
       aqua_policy_allow: true
       aqua_version: v2.48.1
-      app_token_repositories: >-
-        [
-          "${{github.event.repository.name}}",
-        ]
     permissions:
       contents: write
       id-token: write
