@@ -13,6 +13,10 @@ GITHUB_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}
 git tag -m "chore: release $version" "$version"
 git push origin "$version"
 
+if ! [[ "$version" =~ - ]]; then
+    exit 0
+fi
+
 # Get a workflow run id
 sleep 10 # Wait for the workflow run to start
 run_id=$(gh run list -w "$WORKFLOW" -L 1 --json databaseId --jq '.[].databaseId')
@@ -31,7 +35,7 @@ gh run download -R "$GITHUB_REPOSITORY" "$run_id" --pattern goreleaser
 # Push homebrew
 echo "[INFO] Checking out homebrew-${GITHUB_REPOSITORY_NAME}" >&2
 git clone --depth 1 "$GITHUB_SERVER_URL/${GITHUB_REPOSITORY_OWNER}/homebrew-${GITHUB_REPOSITORY_NAME}"
-cp goreleaser/*.rb "homebrew-${GITHUB_REPOSITORY_NAME}"
+cp goreleaser/homebrew/*.rb "homebrew-${GITHUB_REPOSITORY_NAME}"
 pushd "homebrew-${GITHUB_REPOSITORY_NAME}"
 echo "[INFO] Commit and push homebrew-${GITHUB_REPOSITORY_NAME}" >&2
 git add *.rb
@@ -42,7 +46,7 @@ popd
 # Push scoop
 echo "[INFO] Checking out scoop-bucket" >&2
 git clone --depth 1 "$GITHUB_SERVER_URL/${GITHUB_REPOSITORY_OWNER}/scoop-bucket"
-cp goreleaser/*.json "scoop-bucket"
+cp goreleaser/scoop/*.json "scoop-bucket"
 pushd "scoop-bucket"
 echo "[INFO] Commit and push scoop" >&2
 git add *.json
