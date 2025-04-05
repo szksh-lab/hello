@@ -13,7 +13,7 @@ GITHUB_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}
 git tag -m "chore: release $version" "$version"
 git push origin "$version"
 
-if ! [[ "$version" =~ - ]]; then
+if [[ "$version" =~ - ]]; then
     exit 0
 fi
 
