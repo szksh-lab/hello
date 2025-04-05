@@ -40,3 +40,11 @@ git push origin main
 popd
 
 # Push scoop
+echo "[INFO] Checking out scoop-bucket" >&2
+git clone --depth 1 "$GITHUB_SERVER_URL/${GITHUB_REPOSITORY_OWNER}/scoop-bucket"
+cp goreleaser/*.json "scoop-bucket"
+pushd "scoop-bucket"
+echo "[INFO] Commit and push scoop" >&2
+git add *.json
+git commit -m "Scoop update for $GITHUB_REPOSITORY_NAME version $version"
+git push origin main

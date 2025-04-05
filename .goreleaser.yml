@@ -85,12 +85,12 @@ brews:
     # extra_install: |
     #   generate_completions_from_executable(bin/"hello", "completion", shells: [:bash, :zsh, :fish])
 
-# scoops:
-#   -
-#     description: |
-#       Hello
-#     license: MIT
-#     skip_upload: true
-#     repository:
-#       owner: szksh-lab
-#       name: scoop-bucket
+scoops:
+  -
+    description: |
+      Hello
+    license: MIT
+    skip_upload: true
+    repository:
+      owner: szksh-lab
+      name: scoop-bucket
